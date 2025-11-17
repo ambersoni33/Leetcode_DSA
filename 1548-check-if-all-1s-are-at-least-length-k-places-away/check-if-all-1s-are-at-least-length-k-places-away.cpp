@@ -1,26 +1,13 @@
 class Solution {
 public:
     bool kLengthApart(vector<int>& nums, int k) {
-       stack<int>st;
-
-       int i = 0;
-       while(i<nums.size()){
-        if(st.empty() && nums[i] == 1){
-            st.push(i);
-            i++;
-        }
-        else if(nums[i] == 1){
-            int pos = st.top();
-            int rem = i - pos -1;
-            if(rem < k){
-                return false;
+        int prev = -1e9;
+        for(int i=0; i<nums.size(); i++){
+            if(nums[i] == 1){
+                if(i-prev -1 < k ) return false;
+                prev = i;
             }
-            st.pop();
-            st.push(i);
-            i++;
         }
-        else i++;
-       }
-       return true;
+        return true;
     }
 };
